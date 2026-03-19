@@ -1,21 +1,75 @@
-package co.sena.edu.Mogadex.api_productos.api_productos.service;
+package co.sena.edu.Mogadex.api_productos.service;
 
-import jakarta.persistence.*;
+import co.sena.edu.Mogadex.api_productos.model.Producto;
+import co.sena.edu.Mogadex.api_productos.repository.ProductoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
-@Entity
-@Table(name = "productos")
+import java.util.List;
+import java.util.Optional;
+
+@Service
 public class ProductoService {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @NotBlank(message = "El nombre es obligatorio")
-    @Size(max = 100, message = "Máximo 100 caracteres")
-    @Column(nullable = false, length = 100)
-    private String nombre;
-    @NotNull(message = "El precio es obligatorio")
-    @Positive(message = "El precio debe ser mayor a 0")
-    private Double precio;
-    @Column(length = 255)
-    private String descripcion;
-// IntelliJ: Alt+Insert → Getters and Setters
+
+    @Autowired
+    private ProductoRepository productoRepository;
+
+    public List<Producto> getAllProductos() {
+        return productoRepository.findByActivoTrue();
+    }
+
+    public Optional<Producto> getProductoById(Long id) {
+        return productoRepository.findById(id);
+    }
+
+    public Optional<Producto> getProductoByCodigo(String codigo) {
+        return productoRepository.findByCodigo(codigo);
+    }
+
+    public Producto createProducto(Producto producto) {
+        if (productoRepository.existsByCodigo(producto.getCodigo())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
+                "Ya existe un producto con el código: " + producto.getCodigo());
+        }
+        return productoRepository.save(producto);
+    }
+
+    public Producto updateProducto(Long id, Producto productoDetails) {
+        return productoRepository.findById(id)
+            .map(producto -> {
+                // Validar que el código no exista si se está cambiando
+                if (!producto.getCodigo().equals(productoDetails.getCodigo()) && 
+                    productoRepository.existsByCodigo(productoDetails.getCodigo())) {
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
+                        "Ya existe un producto con el código: " + productoDetails.getCodigo());
+                }
+                
+                producto.setCodigo(productoDetails.getCodigo());
+                producto.setNombre(productoDetails.getNombre());
+                producto.setDescripcion(productoDetails.getDescripcion());
+                producto.setPrecio(productoDetails.getPrecio());
+                producto.setCategoria(productoDetails.getCategoria());
+                producto.setActivo(productoDetails.isActivo());
+                return productoRepository.save(producto);
+            })
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, 
+                "Producto no encontrado con ID: " + id));
+    }
+
+    public void deleteProducto(Long id) {
+        productoRepository.findById(id)
+            .map(producto -> {
+                producto.setActivo(false);
+                productoRepository.save(producto);
+                return true;
+            })
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, 
+                "Producto no encontrado con ID: " + id));
+    }
+
+    public List<Producto> getProductosByCategoria(String categoria) {
+        return productoRepository.findByCategoria(categoria);
+    }
 }
