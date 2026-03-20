@@ -8,7 +8,7 @@
 		<version>4.0.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>co.sena.edu.Mogadex.api_productos</groupId>
+	<groupId>co.sena.edu.mogadex.api_productos</groupId>
 	<artifactId>api_productos</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>api_productos</name>

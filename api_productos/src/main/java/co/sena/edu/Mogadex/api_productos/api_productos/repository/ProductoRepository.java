@@ -1,6 +1,6 @@
-package co.sena.edu.Mogadex.api_productos.repository;
+package co.sena.edu.mogadex.api_productos.api_productos.repository;
 
-import co.sena.edu.Mogadex.api_productos.model.Producto;
+import co.sena.edu.mogadex.api_productos.api_productos.model.Producto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

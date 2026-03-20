@@ -1,7 +1,7 @@
-package co.sena.edu.Mogadex.api_productos.service;
+package co.sena.edu.mogadex.api_productos.api_productos.service;
 
-import co.sena.edu.Mogadex.api_productos.model.Producto;
-import co.sena.edu.Mogadex.api_productos.repository.ProductoRepository;
+import co.sena.edu.mogadex.api_productos.api_productos.model.Producto;
+import co.sena.edu.mogadex.api_productos.api_productos.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

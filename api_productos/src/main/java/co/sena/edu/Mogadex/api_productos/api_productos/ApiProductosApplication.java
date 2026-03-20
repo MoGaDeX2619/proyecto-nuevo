@@ -1,4 +1,4 @@
-package co.sena.edu.Mogadex.api_productos.api_productos;
+package co.sena.edu.mogadex.api_productos.api_productos;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

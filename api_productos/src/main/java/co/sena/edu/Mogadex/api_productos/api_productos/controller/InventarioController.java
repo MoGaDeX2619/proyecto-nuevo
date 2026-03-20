@@ -1,16 +1,13 @@
-package co.sena.edu.Mogadex.api_productos.controller;
+package co.sena.edu.mogadex.api_productos.api_productos.controller;
 
-import co.sena.edu.Mogadex.api_productos.model.Inventario;
-import co.sena.edu.Mogadex.api_productos.service.InventarioService;
+import co.sena.edu.mogadex.api_productos.api_productos.model.Inventario;
+import co.sena.edu.mogadex.api_productos.api_productos.service.InventarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +36,7 @@ public class InventarioController {
 
     // Crear nuevo inventario
     @PostMapping
-    public ResponseEntity<Inventario> createInventario(@Valid @RequestBody Inventario inventario) {
+    public ResponseEntity<Inventario> createInventario(@Validated @RequestBody Inventario inventario) {
         try {
             Inventario nuevoInventario = inventarioService.createInventario(inventario);
             return new ResponseEntity<>(nuevoInventario, HttpStatus.CREATED);
@@ -52,7 +49,7 @@ public class InventarioController {
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<Inventario> actualizarStock(
             @PathVariable Long id,
-            @Min(value = 1, message = "La cantidad debe ser mayor a cero") @RequestParam int cantidad) {
+            @RequestParam int cantidad) {
         try {
             Inventario inventario = inventarioService.actualizarStock(id, cantidad);
             return ResponseEntity.ok(inventario);
@@ -65,8 +62,8 @@ public class InventarioController {
     @PostMapping("/movimiento/{id}")
     public ResponseEntity<Inventario> registrarMovimiento(
             @PathVariable Long id,
-            @Min(value = 1, message = "La cantidad debe ser mayor a cero") @RequestParam int cantidad,
-            @NotBlank(message = "El tipo de movimiento es obligatorio") @RequestParam String tipo) {
+            @RequestParam int cantidad,
+            @RequestParam String tipo) {
         try {
             Inventario inventario = inventarioService.registrarMovimiento(id, cantidad, tipo);
             return ResponseEntity.ok(inventario);
@@ -77,7 +74,7 @@ public class InventarioController {
 
     // Actualizar inventario completo
     @PutMapping("/{id}")
-    public ResponseEntity<Inventario> updateInventario(@PathVariable Long id, @Valid @RequestBody Inventario inventarioDetails) {
+    public ResponseEntity<Inventario> updateInventario(@PathVariable Long id, @Validated @RequestBody Inventario inventarioDetails) {
         try {
             Inventario updatedInventario = inventarioService.updateInventario(id, inventarioDetails);
             return ResponseEntity.ok(updatedInventario);

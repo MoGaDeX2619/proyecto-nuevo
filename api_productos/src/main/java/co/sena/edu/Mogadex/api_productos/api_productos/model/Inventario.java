@@ -1,7 +1,8 @@
-package co.sena.edu.Mogadex.api_productos.model;
+package co.sena.edu.mogadex.api_productos.api_productos.model;
+
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -11,25 +12,21 @@ public class Inventario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "La cantidad actual es obligatoria")
-    @Min(value = 0, message = "La cantidad actual no puede ser negativa")
+    //@Min(value = 0, message = "La cantidad actual no puede ser negativa")
     @Column(nullable = false)
     private int cantidadActual;
 
-    @NotNull(message = "La cantidad mínima es obligatoria")
-    @Min(value = 0, message = "La cantidad mínima no puede ser negativa")
+    //@NotNull(message = "La cantidad mínima es obligatoria")
+    //@Min(value = 0, message = "La cantidad mínima no puede ser negativa")
     @Column(nullable = false)
     private int cantidadMinima;
 
     @Column(nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime fechaActualizacion;
 
-    @NotBlank(message = "El estado es obligatorio")
-    @Size(max = 20, message = "El estado no puede exceder 20 caracteres")
     @Column(nullable = false, length = 20)
     private String estado;
 
-    @NotNull(message = "El producto es obligatorio")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "producto_id", nullable = false)
     private Producto producto;

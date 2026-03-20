@@ -1,7 +1,6 @@
-package co.sena.edu.Mogadex.api_productos.model;
+package co.sena.edu.mogadex.api_productos.api_productos.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -12,27 +11,22 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "El código es obligatorio")
-    @Size(max = 50, message = "El código no puede exceder 50 caracteres")
     @Column(nullable = false, unique = true, length = 50)
     private String codigo;
 
-    @NotBlank(message = "El nombre es obligatorio")
-    @Size(max = 200, message = "El nombre no puede exceder 200 caracteres")
     @Column(nullable = false, length = 200)
     private String nombre;
 
-    @Size(max = 500, message = "La descripción no puede exceder 500 caracteres")
+    //@Size(max = 500, message = "La descripción no puede exceder 500 caracteres")
     @Column(columnDefinition = "TEXT")
     private String descripcion;
 
-    @NotNull(message = "El precio es obligatorio")
-    @DecimalMin(value = "0.01", message = "El precio debe ser mayor a 0")
-    @Digits(integer = 10, fraction = 2, message = "El precio debe tener máximo 10 dígitos enteros y 2 decimales")
+    //@NotNull(message = "El precio es obligatorio")
+    //@DecimalMin(value = "0.01", message = "El precio debe ser mayor a 0")
+    //@Digits(integer = 10, fraction = 2, message = "El precio debe tener máximo 10 dígitos enteros y 2 decimales")
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal precio;
 
-    @Size(max = 100, message = "La categoría no puede exceder 100 caracteres")
     @Column(length = 100)
     private String categoria;
 

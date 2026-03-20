@@ -1,10 +1,10 @@
-package co.sena.edu.Mogadex.api_productos.service;
+package co.sena.edu.mogadex.api_productos.api_productos.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import co.sena.edu.Mogadex.api_productos.model.Inventario;
-import co.sena.edu.Mogadex.api_productos.repository.InventarioRepository;
+import co.sena.edu.mogadex.api_productos.api_productos.model.Inventario;
+import co.sena.edu.mogadex.api_productos.api_productos.repository.InventarioRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;

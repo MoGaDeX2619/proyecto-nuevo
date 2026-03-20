@@ -1,4 +1,4 @@
-package co.sena.edu.Mogadex.api_productos.exception;
+package co.sena.edu.mogadex.api_productos.api_productos.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,13 +1,12 @@
-package co.sena.edu.Mogadex.api_productos.controller;
+package co.sena.edu.mogadex.api_productos.api_productos.controller;
 
-import co.sena.edu.Mogadex.api_productos.model.Producto;
-import co.sena.edu.Mogadex.api_productos.service.ProductoService;
+import co.sena.edu.mogadex.api_productos.api_productos.model.Producto;
+import co.sena.edu.mogadex.api_productos.api_productos.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import jakarta.validation.Valid;
 
 import java.util.List;
 import java.util.Optional;
@@ -41,7 +40,7 @@ public class ProductoController {
     }
 
     @PostMapping
-    public ResponseEntity<Producto> createProducto(@Valid @RequestBody Producto producto) {
+    public ResponseEntity<Producto> createProducto(@Validated @RequestBody Producto producto) {
         try {
             Producto nuevoProducto = productoService.createProducto(producto);
             return new ResponseEntity<>(nuevoProducto, HttpStatus.CREATED);
@@ -51,7 +50,7 @@ public class ProductoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Producto> updateProducto(@PathVariable Long id, @Valid @RequestBody Producto productoDetails) {
+    public ResponseEntity<Producto> updateProducto(@PathVariable Long id, @Validated @RequestBody Producto productoDetails) {
         try {
             Producto updatedProducto = productoService.updateProducto(id, productoDetails);
             return ResponseEntity.ok(updatedProducto);
